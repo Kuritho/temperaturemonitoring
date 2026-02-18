@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
-import { database, ref, onValue, set, get } from './firebase';
+import { database, ref, onValue, set } from './firebase';
 import { FaFan, FaThermometerHalf, FaTint, FaToggleOn, FaToggleOff } from 'react-icons/fa';
 import './App.css';
 
@@ -38,7 +38,7 @@ function App() {
 
     // Cleanup subscription
     return () => unsubscribe();
-  }, []);
+  }, [fanControllerRef]);
 
   // Toggle manual override mode
   const toggleManualOverride = async () => {
