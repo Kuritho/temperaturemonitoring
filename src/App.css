@@ -1,38 +1,268 @@
+/* src/App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
 .App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-header {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.app-header h1 {
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.connection-status {
+  background: #e8f5e8;
+  color: #2e7d32;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.main-content {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.sensor-card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f8f9fa;
+  transition: transform 0.3s ease;
+}
+
+.sensor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-card.temperature {
+  border-left: 5px solid #ff4444;
+}
+
+.sensor-card.humidity {
+  border-left: 5px solid #33b5e5;
+}
+
+.sensor-icon {
+  font-size: 2.5rem;
+  margin-right: 20px;
+  color: #666;
+}
+
+.sensor-info h3 {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.sensor-value {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.fan-control-section {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.fan-control-section h2 {
+  color: #333;
+  margin-bottom: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.control-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+}
+
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 200px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.mode-toggle.auto {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.mode-toggle.manual {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.mode-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fan-status {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  justify-content: center;
+}
+
+.fan-status.on {
+  background: #e8f5e8;
+  border: 2px solid #4caf50;
+}
+
+.fan-status.off {
+  background: #ffebee;
+  border: 2px solid #f44336;
+}
+
+.fan-icon {
+  font-size: 2.5rem;
+}
+
+.fan-icon.spinning {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fan-status-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.fan-toggle {
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #4caf50;
   color: white;
+  min-width: 200px;
 }
 
-.App-link {
-  color: #61dafb;
+.fan-toggle.on {
+  background: #f44336;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.fan-toggle.off {
+  background: #4caf50;
+}
+
+.fan-toggle:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.fan-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hint {
+  color: #666;
+  font-style: italic;
+  background: #fff3e0;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.last-update {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .sensor-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fan-status {
+    flex-direction: column;
+    text-align: center;
+    min-width: auto;
+  }
+
+  .fan-toggle {
+    width: 100%;
   }
 }
+
