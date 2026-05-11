@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
-import { database, ref, onValue, set } from './firebase';
+import { database, ref, onValue } from './firebase';
 import { FaFan, FaThermometerHalf, FaClock } from 'react-icons/fa';
 import './App.css';
 
@@ -8,7 +8,6 @@ function App() {
   const [temperature, setTemperature] = useState(0);
   const [fanState, setFanState] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [lastUpdate, setLastUpdate] = useState('');
   const [connectionStatus, setConnectionStatus] = useState('Connecting...');
   const [currentTime, setCurrentTime] = useState('');
 
@@ -57,7 +56,6 @@ function App() {
       if (data) {
         setTemperature(data.temperature || 0);
         setFanState(data.fan_state || false);
-        setLastUpdate(data.last_update || '');
         setLoading(false);
       }
     }, (error) => {
@@ -103,13 +101,6 @@ function App() {
   // Calculate temperature percentage for threshold bar (max 50°C)
   const getTemperaturePercentage = () => {
     return Math.min(100, (temperature / 50) * 100);
-  };
-
-  // Determine if fan should be on based on temperature logic
-  const shouldFanBeOn = () => {
-    if (temperature >= TEMP_ON_THRESHOLD) return true;
-    if (temperature <= TEMP_OFF_THRESHOLD) return false;
-    return fanState; // Maintain current state in the hysteresis zone
   };
 
   return (
