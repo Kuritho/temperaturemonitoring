@@ -19,9 +19,30 @@ const firebaseConfig = {
   measurementId: "G-954M8ZNEQJ"
 };
 
+// Validate required environment variables
+const requiredEnvVars = [
+  'REACT_APP_FIREBASE_API_KEY',
+  'REACT_APP_FIREBASE_AUTH_DOMAIN',
+  'REACT_APP_FIREBASE_DATABASE_URL',
+  'REACT_APP_FIREBASE_PROJECT_ID',
+  'REACT_APP_FIREBASE_STORAGE_BUCKET',
+  'REACT_APP_FIREBASE_MESSAGING_SENDER_ID',
+  'REACT_APP_FIREBASE_APP_ID'
+];
+
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+if (missingVars.length > 0) {
+  throw new Error(`Missing required Firebase environment variables: ${missingVars.join(', ')}`);
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-getAnalytics(app);
+
+// Only initialize analytics in browser environment
+if (typeof window !== 'undefined') {
+  getAnalytics(app);
+}
+
 const database = getDatabase(app);
 
 // Export everything needed for your App.js
